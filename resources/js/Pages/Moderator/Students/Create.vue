@@ -12,25 +12,46 @@
                     <div class="flex flex-wrap -mx-3 mb-6">
                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
-                                First Name
+                                To'liq ism familiya
                             </label>
-                            <input class="block w-full text-gray-700 border rounded py-3 px-4 mb-3 leading-tight  focus:bg-white" id="grid-first-name" type="text" placeholder="Jane">
-                            <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+                            <input v-model="form.fullname" class="block w-full text-gray-700 border rounded py-3 px-4 mb-3 leading-tight  focus:bg-white" id="grid-first-name" type="text">
+<!--                            <p class="text-red-500 text-xs italic">Please fill out this field.</p>-->
                         </div>
                         <div class="w-full md:w-1/2 px-3">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-                                Last Name
+                                Telefon raqam
                             </label>
-                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe">
+                            <input v-model="form.phone" class="block w-full text-gray-700 border rounded py-3 px-4 mb-3 leading-tight  focus:bg-white" id="grid-last-name" type="text">
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-6">
-                        <div class="w-full px-3">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+                        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-address">
+                                Yashash manzil
+                            </label>
+                            <input v-model="form.address" class="block w-full text-gray-700 border rounded py-3 px-4 mb-3 leading-tight  focus:bg-white" id="grid-address" type="text">
+                            <!--                            <p class="text-red-500 text-xs italic">Please fill out this field.</p>-->
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-email">
+                                Email
+                            </label>
+                            <input v-model="form.email" class="block w-full text-gray-700 border rounded py-3 px-4 mb-3 leading-tight  focus:bg-white" id="grid-email"  autocomplete="off" type="email">
+                            <!--                            <p class="text-red-500 text-xs italic">Please fill out this field.</p>-->
+                        </div>
+                        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"  for="grid-password">
                                 Password
                             </label>
-                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-password" type="password" placeholder="******************">
-                            <p class="text-gray-600 text-xs italic">Make it as long and as crazy as you'd like</p>
+                            <input v-model="form.password" class="block w-full text-gray-700 border rounded py-3 px-4 mb-3 leading-tight  focus:bg-white"  autocomplete="off" id="grid-password" type="text">
+                            <!--                            <p class="text-red-500 text-xs italic">Please fill out this field.</p>-->
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <Button type="button" @click="create">Saqlash</Button>
                         </div>
                     </div>
                 </form>
@@ -42,15 +63,33 @@
 
 <script>
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
-import Pagination from '@/Components/Pagination.vue';
+import Button from "@/Components/Button";
 export default {
     components: {
         BreezeAuthenticatedLayout,
-        Pagination,
+        Button
     },
-
-    created() {
-
+    data(){
+      return {
+          form: this.$inertia.form({
+              fullname: "",
+              email: "",
+              password: "",
+              phone: "",
+              address: "",
+          }),
+      }
+    },
+    methods: {
+        create(){
+            this.form.post(this.route("moderator.student.store"), {
+                onFinish: () =>
+                    this.$breeze.toast({
+                        message: "O'qituvchi qo'shildi",
+                        type: "success",
+                    }),
+            });
+        }
     }
 }
 </script>
