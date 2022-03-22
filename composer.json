@@ -13,7 +13,8 @@
         "laravel/framework": "^9.2",
         "laravel/sanctum": "^2.8",
         "laravel/tinker": "^2.7",
-        "tightenco/ziggy": "^1.0"
+        "tightenco/ziggy": "^1.0",
+        "tomfordrumm/jwt-auth": "dev-develop"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -32,6 +33,9 @@
         }
     },
     "autoload-dev": {
+        "files": [
+            "app/helpers.php"
+        ],
         "psr-4": {
             "Tests\\": "tests/"
         }

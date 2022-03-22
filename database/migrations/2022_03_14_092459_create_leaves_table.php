@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('leaves', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('student_id');
-            $table->unsignedInteger('status_id');
+            $table->unsignedInteger('status');
             $table->unsignedInteger('lesson_id');
             $table->timestamps();
         });

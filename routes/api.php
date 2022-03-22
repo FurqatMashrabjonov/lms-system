@@ -14,6 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'auth'
+
+], function ($router) {
+    Route::controller(\App\Http\Controllers\AuthController::class)->group(function (){
+        Route::post('login', 'login');
+        Route::post('logout', 'logout');
+        Route::post('refresh', 'refresh');
+        Route::post('me', 'me');
+
+    });
+
 });
+
+require __DIR__ . '/moderator/index.php';

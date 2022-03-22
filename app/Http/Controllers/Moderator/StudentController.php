@@ -15,22 +15,33 @@ class StudentController extends Controller
 {
     use CreateUser;
 
-    public function index()
+    public function index(): \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
     {
-        return Inertia::render('Moderator/Students/Index', [
-            'students' => Student::paginate()
-        ]);
+       return success_out(Student::paginate());
     }
 
-    public function create()
+    public function show(Student $student): \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
     {
-        return Inertia::render('Moderator/Students/Create');
+        return success_out($student);
     }
 
-    public function store(StudentRequest $request)
+    public function store(StudentRequest $request): \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
     {
         $user = CreateUser::create(array_merge($request->only(['email', 'password']), ['role' => UserRole::Student]));
-        return $user;
+
+        $student = $user->student()->create($request->only(['fullname', 'phone', 'address']))->load('user');
+        return success_out($student);
+    }
+
+    public function delete(Student $student): \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
+    {
+        return success_out($student->delete());
+    }
+
+    public function update(StudentRequest $request, Student $student): \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
+    {
+        $student->update($request->only(['fullname', 'phone', 'address']));
+        return success_out($student);
     }
 
 }

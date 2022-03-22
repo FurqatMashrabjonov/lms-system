@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('fullname');
             $table->unsignedInteger('user_id');
             $table->string('avatar')->nullable();
+            $table->string('phone');
+            $table->string('address');
             $table->timestamps();
         });
     }
