@@ -40,4 +40,27 @@ Route::controller(\App\Http\Controllers\ModeratorController::class)
                 Route::post('/{group}/update', 'update');
                 Route::delete('/{group}', 'delete');
             });
+
+        //Group Students CRUD
+        Route::prefix('group_student')
+            ->controller(\App\Http\Controllers\Moderator\GroupStudentController::class)
+            ->group(function () {
+                Route::get('/', 'index');
+                Route::get('/{group_student}', 'show');
+                Route::post('/', 'store');
+                Route::post('/{group_student}/update', 'update');
+                Route::delete('/{group_student}', 'delete');
+            });
+
+        //Lessons CRUD
+        Route::prefix('lesson')
+            ->controller(\App\Http\Controllers\Moderator\LessonController::class)
+            ->group(function () {
+                Route::get('/', 'index');
+                Route::get('/{lesson}', 'show');
+                Route::post('/', 'store');
+                Route::post('/{lesson}/update', 'update');
+                Route::delete('/{lesson}', 'delete');
+            });
+
     });

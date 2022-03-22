@@ -9,4 +9,9 @@ class Group extends Model
 {
     use HasFactory;
     protected $fillable = ['name'];
+
+    public function students()
+    {
+        return $this->hasMany(GroupStudent::class)->with(['student']);
+    }
 }
