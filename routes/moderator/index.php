@@ -63,4 +63,27 @@ Route::controller(\App\Http\Controllers\ModeratorController::class)
                 Route::delete('/{lesson}', 'delete');
             });
 
+        //Lesson detail CRUD
+        Route::prefix('lesson_detail')
+            ->controller(\App\Http\Controllers\Teacher\LessonDetailController::class)
+            ->group(function () {
+                Route::get('/', 'index');
+                Route::get('/{lesson_detail}', 'show');
+                Route::post('/', 'store');
+                Route::post('/{lesson_detail}/update', 'update');
+                Route::delete('/{lesson_detail}', 'delete');
+            });
+
+
+        //Semesters CRUD
+        Route::prefix('semester')
+            ->controller(\App\Http\Controllers\Moderator\SemesterController::class)
+            ->group(function () {
+                Route::get('/{lesson_id}', 'index');
+                Route::get('/{semester}', 'show');
+                Route::post('/', 'store');
+                Route::post('/{semester}/update', 'update');
+                Route::delete('/{semester}', 'delete');
+            });
+
     });

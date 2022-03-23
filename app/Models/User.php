@@ -47,9 +47,15 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
+    //Check roles
     public function isModerator(): bool
     {
         return $this->role == UserRole::Moderator;
+    }
+
+    public function isTeacher(): bool
+    {
+        return $this->role == UserRole::Teacher;
     }
 
     // Rest omitted for brevity
